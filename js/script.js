@@ -132,11 +132,22 @@ new Vue({
                 this.memorama[this.ultimasCoordenadas.indiceFila][this.ultimasCoordenadas.indiceImagen].acertada = true;
                 this.ultimasCoordenadas.indiceFila = null;
                 this.ultimasCoordenadas.indiceImagen = null;
+    
+                document.body.style.background = "#008000";
+                setTimeout(() => {
+                    document.body.style.background = "white";
+                },2000);
+                
                 // Cada que acierta comprobamos si ha ganado
                 if (this.haGanado()) {
                     this.indicarVictoria();
                 }
             } else {
+                document.body.style.background = "red";            
+                setTimeout(() => {
+                    document.body.style.background = "white";                    
+                },2000);
+
                 // Si no acierta, entonces giramos ambas imágenes
                 this.esperandoTimeout = true;
                 setTimeout(() => {
@@ -146,7 +157,7 @@ new Vue({
                     this.ultimasCoordenadas.indiceFila = null;
                     this.ultimasCoordenadas.indiceImagen = null;
                     this.esperandoTimeout = false;
-                }, SEGUNDOS_ESPERA_VOLTEAR_IMAGEN * 1000);
+                }, SEGUNDOS_ESPERA_VOLTEAR_IMAGEN * 2000);
                 this.aumentarIntento();
             }
         },
