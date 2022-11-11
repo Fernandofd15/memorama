@@ -29,18 +29,15 @@
                     v-for="(imagen, indiceImagen) in fila">
                     <div class="mb-3">
                         <img @click="voltear(indiceFila, indiceImagen)"
-                            :class="{'girar': imagen.mostrar}"
+                            v-bind:id="(imagen.acertada ? 'acertar' : '')"
+                            :class="(imagen.acertada == false && imagen.mostrar==true ? 'errar' : ' ')"
                             :src="(imagen.mostrar ? imagen.ruta :
                             NOMBRE_IMAGEN_OCULTA)" class="card-img-top img-fluid
-                            img-thumbnail">
+                            img-thumbnail cardStyle">
                     </div>
                 </div>
             </div>
         </main>
-        <footer class="px-2 py-2 fixed-bottom bg-success text-white">
-            <span>Fernando Figueroa Díaz
-            </span>
-        </footer>
         <script src="./js/sweetalert2.all.min.js"></script>
         <script src="./js/vue.min.js"></script>
         <script src="./js/script.js"></script>
