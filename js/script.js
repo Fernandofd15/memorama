@@ -1,5 +1,5 @@
 
-const MAXIMOS_INTENTOS = 8, // Intentos máximos que tiene el jugador
+const MAXIMOS_INTENTOS = 15, // Intentos máximos que tiene el jugador
     COLUMNAS = 4, // Columnas del memorama
     SEGUNDOS_ESPERA_VOLTEAR_IMAGEN = 1, // Por cuántos segundos mostrar ambas imágenes
     NOMBRE_IMAGEN_OCULTA = "./img/marvel.jpg"; // La imagen que se muestra cuando la real está oculta
@@ -32,14 +32,6 @@ new Vue({
     methods: {
         mostrarCreditos() {
             Swal.fire({
-                html: `Imagen de signo de interrogación: 
-                <div>Icons made by <a href="https://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> 
-                    from <a rel="nofollow" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
-                    is licensed by 
-                    <a rel="nofollow" href="http://creativecommons.org/licenses/by/3.0/" 
-                    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-                </div>
-                `,
                 confirmButtonText: "Cerrar",
                 allowOutsideClick: false,
                 allowEscapeKey: false,
@@ -65,7 +57,7 @@ new Vue({
                     title: "¡Ganaste!",
                     html: `
                 <img class="img-fluid" src="./img/ganaste.png" alt="Ganaste">
-                <p class="h4">Muy bien hecho</p>`,
+                <p class="h4">Felicidades</p>`,
                     confirmButtonText: "Jugar de nuevo",
                     allowOutsideClick: false,
                     allowEscapeKey: false,
@@ -79,7 +71,7 @@ new Vue({
         // Ayudante para mezclar un arreglo
         mezclarArreglo(a) {
             var j, x, i;
-            for (i = a.length - 1; i > 0; i--) {
+            for (i = a.length-1; i > 0; i--) {
                 j = Math.floor(Math.random() * (i + 1));
                 x = a[i];
                 a[i] = a[j];
@@ -132,22 +124,14 @@ new Vue({
                 this.memorama[this.ultimasCoordenadas.indiceFila][this.ultimasCoordenadas.indiceImagen].acertada = true;
                 this.ultimasCoordenadas.indiceFila = null;
                 this.ultimasCoordenadas.indiceImagen = null;
-    
-                document.body.style.background = "#008000";
-                setTimeout(() => {
-                    document.body.style.background = "white";
-                },2000);
                 
+                           
                 // Cada que acierta comprobamos si ha ganado
                 if (this.haGanado()) {
                     this.indicarVictoria();
                 }
             } else {
-                document.body.style.background = "red";            
-                setTimeout(() => {
-                    document.body.style.background = "white";                    
-                },2000);
-
+                
                 // Si no acierta, entonces giramos ambas imágenes
                 this.esperandoTimeout = true;
                 setTimeout(() => {
@@ -208,12 +192,15 @@ new Vue({
             // También vamos a precargar la "espalda" de la tarjeta
             imagenesPrecarga.push(NOMBRE_IMAGEN_OCULTA);
             // Cargamos cada imagen y en el evento load aumentamos el contador
+            
             imagenesPrecarga.forEach(ruta => {
                 const imagen = document.createElement("img");
+                
                 imagen.src = ruta;
                 imagen.addEventListener("load", () => {
                     contador++;
                     if (contador >= total) {
+                        
                         // Si el contador >= total entonces se ha terminado la carga de todas
                         this.reiniciarJuego();
                         Swal.close();
