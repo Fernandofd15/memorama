@@ -2,7 +2,7 @@ img.card-img-top {
     object-fit: cover;
     cursor: pointer;
     max-height: 150px !important;
-    max-width: 150px !important;
+    max-width: 115px !important;
 }
 
 img.card-img-top.girar {
@@ -20,4 +20,15 @@ img.card-img-top.girar {
 body {
   /*Para la barra inferior fija*/
   padding-bottom: 70px;
+}
+
+#acertar{
+    border-color: green;
+    background-color: green;
+}
+
+.errar{
+    animation-duration: 5s;
+    border-color: red;
+    background-color: red;
 }
